@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>tarcisio sassara</title>
+        
+        <meta name="author" content="Tarcisio Sassara">
+        <link rel="author" href="mailto:Tarcisio+Sassara+%3Csassara.tarcisio%40gmail.com%3E">
+        <meta name="description" lang="pt-BR" content="Some really nice page">
+        <meta name="keywords" lang="pt-BR" content="foo,bar,page,pdf,wkhtmltopdf,exiftool,qpdf">
+        <meta name="generator" lang="pt-BR" content="tarcisio.dev">
+
+        <style>
+            @page {
+                margin: 2cm 2cm 2cm 1.5cm;
+                size: A4;
+                @bottom-center {
+                    content: counter(page);
+                    color: #333;
+                    font-family: "Roboto";
+                    font-size: 0.8rem;
+                    font-weight: normal;
+                }
+                border-left: 5px solid #303960;
+            }
+
+            @page :first {
+                margin-top: 4cm;
+            }
+
+            body{margin-left: 0.5cm;}
+            p {text-indent: 2rem;}
+
+            html { hyphens: auto }
+            body {color: #333; font-family: "Libre Caslon Text"; font-size: 10pt; line-height: 1.5;}
+            h1, h2, h3, h3 {color: #5e5e5e; font-family: "Roboto";}
+            h2 {color: #303960; page-break-before: always;}
+            div.header {text-align: center;}
+            div.header h1, div.header p {margin: 0; padding: 0;}
+            div.header h1 span {color: #8B8B8B;}
+            div.header p {font-size: 0.7rem; font-style: italic; text-align: right; margin-top:1cm; margin-bottom: 1cm;}
+            div.header a {color: #333;}
+            div.header img {width: 400px;}
+            div.header cite {font-size: 0.6rem;}
+
+            div.sep {text-align: center; margin: 1cm 0;}
+            div.sep img {width: 200px;}
+
+            article header h2 { margin-bottom: 0;}
+            article header p {
+                font-family: "Roboto";
+                font-size: 0.8rem;
+                margin-top: 0;
+                text-indent: 0;
+            }
+            img {text-align: center; width: 100%;}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Artigos de <a href="https://tarcisio.dev"><span>https://</span>tarcisio.dev<span>/</span></a></h1>
+            <p>por <a href="https://tarcisio.dev">Tarcisio Sassara</a><br>
+            Criado em 11/07/2020<br>
+            Atualizado em 11/07/2020</p>
+
+            <img src="images/book_cover.png">
+            <blockquote><p>"The Hawk-Owl is especially well known in Canada. This bird goes as far south as Louisiana."
+            <cite>Hazlitt Alva Cuppy PH.D., Editor Beauties and Wonders of Land and Sea (Springfield, OH: Mast, Crowell & Kirkpatrick, 1895)</cite></p></blockquote>
+        </div>
+
+        <main>
+        <article>
+            <header>
+            <h2>Post Title Created</h2>
+            <p>
+                Criado em <time datetime="2020-01-11">11/01/2020</time>.
+            </p>
+            </header>
+            
+            &lt;div itemprop=&#34;articleBody&#34;&gt;
+            &lt;p id=&#34;summary&#34;&gt;This is the summary.&lt;/p&gt;
+        &lt;/div&gt;
+        </article>
+
+        <div class="sep"><img src="images/book_pen.png"></div>
+        <article>
+            <header>
+            <h2>Post Title Updated</h2>
+            <p>
+                Criado em <time datetime="2020-02-03">03/02/2020</time>.
+            </p>
+            </header>
+            
+            &lt;div itemprop=&#34;articleBody&#34;&gt;
+            &lt;p id=&#34;summary&#34;&gt;The post summary.&lt;/p&gt;
+            &lt;p&gt;&lt;img src=&#34;updated1.jpg&#34; alt=&#34;cartoon&#34;/&gt;&lt;/p&gt;
+        &lt;/div&gt;
+        </article>
+
+        <div class="sep"><img src="images/book_pen.png"></div>
+        </main>
+    </body>
+</html>

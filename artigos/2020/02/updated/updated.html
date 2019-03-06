@@ -1,0 +1,61 @@
+
+<!doctype html>
+<html lang="pt-BR" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Post Title Updated</title>
+        
+        <meta name="author" content="Tarcisio Sassara">
+        <link rel="author" href="mailto:Tarcisio+Sassara+%3Csassara.tarcisio%40gmail.com%3E">
+        <meta name="description" lang="pt-BR" content="Some really nice page">
+        <meta name="keywords" lang="pt-BR" content="foo,bar,page,pdf,wkhtmltopdf,exiftool,qpdf">
+        <meta name="generator" lang="pt-BR" content="tarcisio.dev">
+
+        <style>
+            @page {
+                margin: 2cm 2cm 2cm 1.5cm;
+                size: A4;
+                @bottom-center {
+                    content: counter(page);
+                    color: #333;
+                    font-family: "Roboto";
+                    font-size: 0.8rem;
+                    font-weight: normal;
+                }
+
+                border-left: 5px solid #303960;
+            }
+
+             
+            @page :first {
+                margin-top: 4cm;
+            }
+
+            body{margin-left: 0.5cm;}
+            p {text-indent: 2rem;}
+
+            html { hyphens: auto }
+            body {color: #333; font-family: "Libre Caslon Text"; font-size: 10pt; line-height: 1.5;}
+            h1, h2, h3, h3 {color: #303960; font-family: "Roboto";}
+            h3 {page-break-before: always;}
+            div.header {text-align: center;}
+            div.header h1, div.header p {margin: 0; padding: 0;}
+            div.header p {font-size: 0.7rem; font-style: italic; text-align: right; margin-top:1cm; margin-bottom: 1cm;}
+            div.header a {color: #333;}
+            img {text-align: center; width: 100%;}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Post Title Updated</h1>
+            <p>por <a href="https://tarcisio.dev">Tarcisio Sassara</a> em 03/02/2020.</p>
+        </div>
+
+        <div class="main">
+            <div itemprop="articleBody">
+            <p id="summary">The post summary.</p>
+            <p><img src="updated1.jpg" alt="cartoon"/></p>
+        </div>
+        </div>
+    </body>
+</html>
