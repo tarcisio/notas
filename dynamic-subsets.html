@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Creating Dynamic Subsets in Applix TM1 with MDX - A Primer</title>
+  </head>
+  <body>
+      <div class="section-1">
+      <div class="section-2">
+    <article id="node-68" class="section-3">
+  <h1 class="book-heading">Creating Dynamic Subsets in Applix TM1 with MDX - A Primer</h1>
+  
+
+           
+      
+  <article id="node-62" class="section-4">
+  <h1 class="book-heading">What is a MDX-based dynamic subset in TM1?</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">What is a MDX-based dynamic subset in TM1?</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:33</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>A dynamic subset is one which is not a fixed, static, list but instead it is based on a query which is re-evaluated every time the subset is used. In fact, MDX could be used to create a static subset and an example is shown below, but this unlikely to be useful or common.</p>
+
+<p>Some examples of useful dynamic subsets might be a list of all base-level products; a list of our Top 10 customers by gross margin; a list of overdue supply shipments; all cost centres who have not yet submitted their budget. The point is, these lists (subsets) may vary from second to second based on the structure or data in TM1. For example, as soon as a new branch is added to Europe, the European Branches subset will immediately contain this new branch, without any manual intervention needed.</p>
+
+<p>MDX is the query language used to define these subsets. MDX is an industry-standard query language for multi-dimensional databases like TM1, although TM1 only supports a certain subset (excuse the pun) of the entire language and adds in a few unique features of its own as well. When you define a subset using MDX instead of a standard subset, TM1 stores this definition rather than the resulting set. This means the definition – or query – is re-run every time you look at it – without the user or administrator needing to do anything at all. If the database has changed in some way then you may get different results from the last time you used it. For example, if a subset is defined as being “the children of West Coast Branches” and this initially returns “Oakland, San Francisco, San Diego” when it is first defined, it may later return “Oakland, San Francisco, San Diego, Los Angeles” once LA has been added into the dimension as a child of West Coast Branches. This is what we mean by “dynamic” – the result changes. Another reason that can cause the subset to change is when it is based on the values within a cube or attribute. Every day in the newspaper the biggest stock market movers are listed, such as a top 10 in terms of share price rise. In a TM1 model this would be a subset looking at a share price change measure and clearly would be likely to return a different set of 10 members every day. The best part is that the subset will update its results automatically without any work needed on the part of a user.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-63" class="section-4">
+  <h1 class="book-heading">How to create a MDX-based subset in TM1</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">How to create a MDX-based subset in TM1</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:34</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>The same basic steps can be followed with all the examples in this document. Generally the examples can be copy-and-pasted into the Expression Window of the Subset Editor of the dimension in question – often Product. Note that it is irrelevant which cube the dimension is being used by; you will get same results whether you open the dimension Subset Editor from within a cube view, the cube tree in Server Explorer or the dimension tree in Server Explorer.</p>
+
+<p>In order to view and edit an MDX query you must be able to see the Expression Window in the Subset Editor. To toggle this window on and off choose View / Expression Window.</p>
+
+<p><img alt="create an MDX subset" data-entity-type="file" data-entity-uuid="efa19690-5e2d-4b51-8775-c19e6094ee34" src="/sites/default/files/inline-images/create-mdx-subset.png" /></p>
+
+<p>You can now just type (or paste) your query into this Expression Windows and press the Update button to see the results.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-64" class="section-4">
+  <h1 class="book-heading">How to create a static subset with MDX</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">How to create a static subset with MDX</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:38</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>A static subset is one which never varies in its content.<br />
+This query will return the same 3 members (Discount Loan, Term Loan and Retail) every time.<br />
+<code>{ [Product].[Discount Loan], [Product].[Term Loan], [Product].[Retail] }</code></p>
+
+<p>Don’t worry, it gets more exciting from here.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-65" class="section-4">
+  <h1 class="book-heading">How to create a dynamic subset with MDX</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">How to create a dynamic subset with MDX</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:39</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>TM1 only supports a certain number of functions from the complete MDX specification. Different versions of TM1 will support different functions (and potentially support the in different ways). The valid set of functions for the version of TM1 that you are using can be found in the main Help file, under Reference Material / MDX Function Support. Before trying to write a new query, make sure it is supported, and although some unlisted functions certainly do work they must be used at your own risk. The standard error message which means the function is genuinely not supported by your version of TM1 is, "Failed to compile expression".</p>
+
+<p>One word of warning: by its very nature, the results of a dynamic subset can change. When including dynamic subsets in views, processes, SUBNM functions, and so forth, consider carefully what the potential future results might be, especially if the subset could one day be empty.</p>
+
+<p>The two most common methods to go about actually creating a dynamic subset are to create them by hand or using TurboIntegrator.</p>
+
+<p><strong>By hand</strong>. You can either type (or paste) a query into the Expression Window as explained earlier, or you can choose Tools / Record Expression (and then Stop Recording when done) to turn on a kind of video recorder. You can then use the normal features of the subset editor (e.g. select by level, sort descending, etc.) and this recorder will turn your actions into a valid MDX expression. This is a great way to see some examples of valid syntax, especially for more complex queries.</p>
+
+<p>When you have been recording an expression and choose Stop Recording TM1 will ask you to confirm if you wish to attach the expression with the subset - make sure to say ‘Yes’ and tick the ‘Save Expression’ checkbox when saving the resulting subset, otherwise only a static list of the result is saved, not the dynamic query itself.</p>
+
+<p><strong>Using TurboIntegrator</strong>. Only one line, using SubsetCreateByMDX, is needed to create and define the subset. You will need to know what query you want as the definition already. Note that the query can be built up in the TI script using text concatenation so can incorporate variables from your script and allow long queries to be built up in stages which are easier to read and maintain.<br />
+<code>SubsetCreatebyMDX('Base Products','{TM1FILTERBYLEVEL({TM1SUBSETALL( [Product] )}, 0)}');</code><br />
+All TI-created MDX subsets are saved as dynamic MDX queries automatically and not as a static list.</p>
+
+<p>Note that, at least up to TM1 v9.0 SP3, MDX-based subsets cannot be destroyed (SubsetDestroy) if they are being used by a public view, and they cannot be recreated by using a second SubsetCreateByMDX command. Therefore it is difficult to amend MDX-based subsets using TI. While the dynamic nature of the subset definition may make it somewhat unlikely you will actually want to do this, it is important to bear in mind. If you need to change some aspect of the query (e.g. a TM1FilterByPattern from “2006-12*” to “2007-01*” you may have to define the query to use external parameters, as documented in this document. This will have a small performance impact over the simpler hardcoded version.</p>
+
+<p>Also, filter against values of a cube with SubsetCreateByMDX in the <em>Epilog tab</em> e.g. {FILTER({TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},[Test].([Posting Measures].[Amount]) &gt; 0 )} will not work if the values happen to have been loaded in the Data tab. You need to execute the SubsetCreateByMDX command in a subsequent TI process.</p>
+
+<p>Note that TI has a limit of 256 characters for defining MDX subsets, at least up to v9.1 SP3, which can be quite limiting.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-66" class="section-4">
+  <h1 class="book-heading">Syntax and Layout</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Syntax and Layout</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:41</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>A query can be broken over multiple lines to make it more readable. For example:<br />
+<code>{<br />
+FILTER(<br />
+     {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+       Test2.([Rate Measures].[Rate]) = 19<br />
+      )<br />
+}</code><br />
+is more readable than having the whole query in one line. The actual filter section is more easily read and modified now by having it on a line by itself.</p>
+
+<p>Note that references to members usually have the dimension name as a prefix. For example,<br />
+<code>{ {[Product].[Retail].Children} }</code><br />
+In fact the dimension name is optional – but only if the member name (Retail in this case) is completely unique within the entire server - i.e. there are no cubes, dimensions or members with that exact name. For example this is the same query with the dimension name omitted:<br />
+<code>{ {[Retail].Children} }</code><br />
+Which would work in the context of the sample application used by this document but would be risky in a real-world application. The error message received when forgetting to specify the prefix would be something like, “Level or member name “[Retail]” ambiguous: found in dimensions…” and then it goes on to list the various dimensions in which the non-unique member name can be found, which is very helpful. It is therefore certainly safest and most performant to always use the dimension prefix.</p>
+
+<p>The use of square brackets can sometimes seem a bit arbitrary when reading examples of MDX queries. The fact is that an OLAP object name (e.g. cube name, dimension name, member name) must be enclosed in square brackets only if it contains a space, starts with a number or is an MDX reserved word (e.g. Select). However, sometimes it can be simpler to decide to always use brackets so similar queries can be compared side by side more easily.</p>
+
+<p>The exact definition of a member in TM1 is almost always expressed as [Dimension Name].[Member Name] and no more. In other products that also use MDX as a query language (such as Microsoft Analysis Services) you may notice that queries specific the full ‘path’ from the dimension name through the hierarchy down to the member name, for example:<br />
+<code>[Date].[2009].[Q1].[Feb].[Week 06]</code><br />
+This can also be written as <code>[Date].[2009^Q1^Feb^Week 06]</code><br />
+The reason for this is that other products may not require every member name to be unique since each member has a context (it’s family) to enable it be uniquely identified, which is why they need to know exactly which Week 06 is required since there may be others (in 2008 for instance in the above example). TM1 requires all member names, at any level (and within Aliases) to be completely unique within that dimension. TM1 would need you to make Q1, Feb and Week 06 more explicit in the first place (i.e. Q1 2009, Feb 2009, Week 06 2009) but you can then just refer to [Date].[Week 06 2009].</p>
+
+<p>Finally, case (i.e. capital letters versus lower case) is not important with MDX commands (e.g. Filter or FILTER, TOPCOUNT or TopCount are all fine) but again you may prefer to adopt just one style as standard to make it easier to read.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-67" class="section-4">
+  <h1 class="book-heading">The example model used</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">The example model used</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:41</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>In this document many examples of dynamic queries will be given. They all work (exactly as written, just copy-and-paste them into the Expression Window in the Subset Editor of the appropriate dimension to use them) on the simple set of cubes and dimensions shown below. The model is deliberately simple with no special characteristics so you should find it easy to transfer the work to your own model.</p>
+
+<p>The model used included 1 main dimension, Product, on which the vast majority of the queries works plus 3 cubes: Test, Test2 and Test3. The data values in the cubes will vary during testing (you’ll want to tweak the values and re-run the query to make sure the results change and are correct) but the screenshots below show the cube and dimension structures well enough for you to quickly recreate them or how to use your own model instead. To simplify the distribution of this document there is no intention to also distribute the actual TM1 model files. Note that the main dimension used, Product, featured ragged, and multiple, hierarchies.</p>
+
+<p><img alt="Date Dimension" data-entity-type="file" data-entity-uuid="a61d0238-a068-4d08-a606-84d5dab34465" src="/sites/default/files/inline-images/date-dimension.jpg" /></p>
+
+<p><img alt="Product Dimension" data-entity-type="file" data-entity-uuid="b20333a6-b96c-4f91-a085-d8f146c9e2df" src="/sites/default/files/inline-images/product-dimension.jpg" /></p>
+
+<p><img alt="Test1 Cube" data-entity-type="file" data-entity-uuid="4b1e23fe-4590-4775-9aa1-bbabae688f34" src="/sites/default/files/inline-images/test1-cube.jpg" /></p>
+
+<p><img alt="Test2 Cube" data-entity-type="file" data-entity-uuid="1cdbf817-3b23-4f7c-b3e4-68199157de56" src="/sites/default/files/inline-images/test2-cube.jpg" /></p>
+
+<p><img alt="Test3 Cube" data-entity-type="file" data-entity-uuid="d65fe64c-7331-4319-a68b-69b694532b61" src="/sites/default/files/inline-images/test3-cube.jpg" /></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-61" class="section-4">
+  <h1 class="book-heading">TM1SubsetAll, Members, member range</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">TM1SubsetAll, Members, member range</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:30</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>The basis for many queries, this returns (almost, see below) the entire dimension, which is the equivalent of clicking the ‘All’ button in the Subset Editor.<br />
+<code>TM1SUBSETALL( [Product] )</code></p>
+
+<p>Note that only the final instance in the first hierarchy of members that are consolidated multiple times is returned.</p>
+
+<p>The Members function, on the other hand, delivers the full dimension, duplicates included:<br />
+<code>[Product].Members</code></p>
+
+<p>A range of contiguous members from the same level can be selected by specifying the first and last member of the set you require with a colon between them.<br />
+This example returns Jan 1st through to Jan 12th 1972.<br />
+<code>{[Date].[1972-01-01]:[Date].[1972-01-12]}</code></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-69" class="section-4">
+  <h1 class="book-heading">Select by Level, Regular Expression (Pattern) and Ordinal</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Select by Level, Regular Expression (Pattern) and Ordinal</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:51</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Selecting members based on their level in the dimension hierarchy (TM1FilterByLevel) or by a pattern of strings in their name (TM1FilterByPattern) can be seen easily by using the Record Expression feature in the subset editor.</p>
+
+<p>The classic “all leaf members” query using TM1’s level filtering command TM1FilterByLevel:<br />
+<code>{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}</code><br />
+Select all the leaf members which match the wildcard ‘*HC??’ – i.e. that have H and C as the third and fourth characters from the end of their name.<br />
+<code>{TM1FILTERBYPATTERN( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, "*HC??")}</code></p>
+
+<p>The reason that these functions start with “TM1” is that they are not standard MDX commands and are unique to TM1. There are two main reasons why Applix will implement such unique functions: to add a feature that is present in “standard” TM1 and users will miss if it is not there; or because “standard” TM1 has the same feature as MDX but has historically implemented it slightly differently to MDX and therefore would, again, cause users problems if it was only implemented in the standard MDX way.</p>
+
+<p>In these two cases, TM1FilterByPattern brings in a function commonly used by TM1 users that is lacking in MDX, while TM1FilterByLevel exists because TM1 has, since its launch in 1984, numbered consolidation levels starting at zero for the leaf level rising up the levels to the total members, while Microsoft decided to do it the exact opposite way.</p>
+
+<p>In certain situations it is useful to use the standard MDX levels method and this is also available with the Levels function. It allows you return the members of a dimension that reside at the same level as a named member, just bear in mind that standard MDX orders the levels in terms of their distance from the top of the hierarchy and not the bottom as TM1.</p>
+
+<p>This example returns all the members at the same level as the Retail member:<br />
+<code>{ {[Product].[Retail].Level.Members} }</code><br />
+Which, although Retail is a high level consolidation, returns an N: item (Product Not Applicable) in the dimension because this rolls straight up into All Products as does Retail so they are considered to be at the same level.</p>
+
+<p>To filter the dimension based on a level number you need to use the .Ordinal function. This is not documented as being supported in the Help file, and did not work in 8.2.7, but appears to work in 9.0 SP3 and 9.1.1.36 at least.<br />
+This example returns all the members at Level 1:<br />
+<code>{Filter( {TM1SUBSETALL( [Product] )}, [Product].CurrentMember.Level.Ordinal = 1)}</code></p>
+
+<p>This example would return all members not at the same level as Discount Loan.<br />
+<code>{Filter( {TM1SUBSETALL( [Product] )}, [Product].CurrentMember.Level.Ordinal &lt;&gt; [Product].[Discount Loan].Level.Ordinal)}</code></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-70" class="section-4">
+  <h1 class="book-heading">TM1Sort, TM1SortByIndex and Order</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">TM1Sort, TM1SortByIndex and Order</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:51</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>TM1Sort is the equivalent of pressing one of the two Sort Ascending or Sort Descending buttons in the subset editor – i.e. sort alphabetically.</p>
+
+<p>TM1SortIndex is the equivalent of pressing one of the two Sort by index, ascending or Sort by index, descending buttons in the subset editor – i.e. sort by the dimension index (dimix).</p>
+
+<p>Order is a standard MDX function that uses a data value from a cube to perform the sort. For example, sort the list of customers according to the sales, or a list of employees according to their length of service.</p>
+
+<p>Sort the whole Product dimension in alphabetically ascending order.<br />
+<code>{TM1SORT( {TM1SUBSETALL( [Product] )}, ASC)}</code></p>
+
+<p>Or, more usefully, just the leaf members:<br />
+<code>{TM1SORT( TM1FILTERBYLEVEL({TM1SUBSETALL( [Product] )},0), ASC)}</code></p>
+
+<p>Sort the leaf members according to their dimix:<br />
+<code>{TM1SORTBYINDEX( TM1FILTERBYLEVEL({TM1SUBSETALL( [Product] )},0), ASC)}</code></p>
+
+<p>Sort the leaf members of the dimension according to their Amount values in the Test cube from highest downwards.<br />
+<code>{<br />
+ORDER(<br />
+    { TM1FILTERBYLEVEL(<br />
+        {TM1SUBSETALL( [Product] )}<br />
+        ,0)}<br />
+, [Test].([Posting Measures].[Amount]), BDESC)<br />
+}</code><br />
+<br />
+Note that using BDESC instead of DESC gives radically different results. This is because BDESC treats all the members across the set used (in this case the whole dimension) as being equal siblings and ranks them accordingly, while DESC treats the members as still being in their “family groups” and ranks them only against their own “direct” siblings. If you’re not sure what this means and can’t see the difference when you try it out, then just use BDESC!</p>
+
+<p>Order can also use an attribute instead of a cube value. In this example the AlternateSort attribute of Product is used to sort the children of Demand Loan in descending order. It is a numeric attribute containing integers (i.e. 1, 2, 3, 4, etc) to allow a completely dynamic sort order to be defined:<br />
+<code>{ ORDER( {[Demand Loan].Children}, [Product].[AlternateSort], DESC) }</code></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-71" class="section-4">
+  <h1 class="book-heading">TopCount and BottomCount</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">TopCount and BottomCount</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:52</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>A classic Top 10 command:<br />
+<code>{ TOPCOUNT( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, 10, [Test].([Posting Measures].[Amount]) )}</code><br />
+By omitting a sort order it sorts in the default order (which has the values descending in value and breaks any hierarchies present).</p>
+
+<p>A Top 10 query with an explicit sort order for the results.<br />
+<code>{ ORDER( {TOPCOUNT( {TM1FILTERBYLEVEL({TM1SUBSETALL( [Product] )},0)}, 10, [test].([Posting Measures].[Amount]))}, [test].([Posting Measures].[Amount]), BDESC) }</code><br />
+BDESC means to “break” the hierarchy.<br />
+Note how the chosen measure is repeated for the sort order. Although the same measure is used in the sample above you could actually find the top 10 products by sales but then display them in the order of, say, units sold or a ‘Strategic Importance’ attribute.</p>
+
+<p>This is the top 10 products based on Test2's Rate values, not ordered so will be sorted according to the values in Test2.<br />
+<code>{TOPCOUNT( {TM1FILTERBYLEVEL({TM1SUBSETALL( [Product] )},0)}, 10, [Test2].([Rate Measures].[Rate]))}</code></p>
+
+<p>This is the top 10 products based on test2's data in the Rate measure, ordered from 10 through 1.<br />
+<code>{ORDER( {TOPCOUNT( {TM1FILTERBYLEVEL({TM1SUBSETALL( [Product] )},0)}, 10, [test2].([Rate Measures].[Rate]))}, [test2].([Rate Measures].[Rate]), ASC)}</code></p>
+
+<p>TopCount automatically does a descending sort by value to get the TOP members. If this is not desired, you might want to use the Head function (detailed below) instead.</p>
+
+<p>BottomCount is the opposite of TopCount and so is used to find the members with the lowest values in a cube. Beware that the lowest value is often zero and if that value needs to be excluded from the query you will need to refer to the section on the Filter function later in this document.</p>
+
+<p>A Bottom 10 query with an explicit sort order for the results.<br />
+<code>{ ORDER( {BOTTOMCOUNT( {TM1FILTERBYLEVEL({TM1SUBSETALL( [Product] )},0)}, 10, [test].([Posting Measures].[Amount]))}, [test].([Posting Measures].[Amount]), BASC) }</code></p>
+
+<p>Further reading: TopSum, TopPercent and their Bottom equivalents are useful related functions.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-72" class="section-4">
+  <h1 class="book-heading">Filter, by values, strings and attributes</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Filter, by values, strings and attributes</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:52</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>The FILTER function is used to filter the dimension based on some kind of data values rather than just the members and their hierarchy on their own. This data might be cube data (numeric or string) or attribute data. This requires a change of thinking from straightforward single dimensions (lists with a hierarchy and occasionally some attributes) to a multi-dimensional space, where every dimension in these cubes must be considered and dealt with.</p>
+
+<p>This example returns the leaf members of Product that have an Amount value in the Test cube above zero.<br />
+<code>{FILTER({TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+[Test].([Posting Measures].[Amount]) &gt; 0 )}</code></p>
+
+<p>Since the Test cube only has 2 dimensions – Product and Posting Measures this is a simplistic example. Most cubes will have more than just the dimension being filtered and the dimension with the filter value in. However, it is simple to extend the first example to work in a larger cube.</p>
+
+<p>This example returns the leaf members of Product that have an Amount value for All Entities in the Test3 cube above zero.<br />
+<code>{FILTER({TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+[Test3].([Entity].[All Entities],[Posting Measures].[Amount]) &gt; 0 )}</code></p>
+
+<p>As you can see from the above, simply include all the requisite dimension references inside the round brackets. Usually you will just need a specific named member (e.g. ‘All Entities’). If the dimension is omitted then the CurrentMember is used instead which is similar to using !dimension (i.e. “for each”) in a TM1 rule, and could return different results at a different speed.</p>
+
+<p>Instead of just using a hardcoded value to filter against (zeroes in the examples above), this example returns all products with an amount in the Test cube greater than or equal to the value in the cell [MidasJCFI, Amount].<br />
+<code>{FILTER(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+[Test].([Posting Measures].[Amount]) &gt;=<br />
+[Test].([Product].[MidasJCFI],[Posting Measures].[Amount])<br />
+)}</code></p>
+
+<p>This query returns the products that have a Rate value in Test2 greater than MidasJXCO's Rate in Test2. Now, this query just returns a set of products – it’s up to you which cube you display these products in – i.e. you can run this while browsing Test and therefore return what looks like an almost random set of products but the fact is that the query is filtering the list of products based on data held in Test2. This may not immediately appear to be useful but actually it is, and can be extremely useful – for example display the current year’s sales for products that were last year’s worst performers. If the data for two years was held in different cubes then this would be exact same situation as this example. There are often many potential uses for displaying a filtered/focused set of data in Cube B that is actually filtered based on data in Cube A.<br />
+{FILTER(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+[Test].([Posting Measures].[Amount]) &gt;=<br />
+[Test2].([Product].[MidasJXCO],[Rate Measures].[Rate])<br />
+)}</p>
+
+<p>As detailed elsewhere, Tail returns the final member(s) of a set. An example of when it is handy when used with Filter would be for finding the last day in a month where a certain product was sold. The simple example below initially filters Product to return only those with an All Entity Amount &gt; 0, and then uses tail to return the final Product in that list.<br />
+<code>{TAIL( FILTER(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+[Test3].( [Entity].[All Entities], [Posting Measures].[Amount]) &gt; 0<br />
+))}</code><br />
+Note: with the 'other' cubes having more dimensions than does Test the current member is used (‘each’), not 'All' so whether you want ‘each’ or ‘All’ you should write this explicitly to be clearer.</p>
+
+<p>You can even filter a list in Cube1 where the filter is a value in one measure compared to another measure in Cube1. This example returns the Products with an amount in the Test cube above zero where this Amount is less than the value in Count.<br />
+<code>{FILTER(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+(Test.[Posting Measures].[Amount] 0<br />
+)}</code></p>
+
+<p>This example returns all the leaf products that have an Amount in Entity Not Applicable 10% greater than the Amount in Entity Not Found, in the Test3 cube. Not very useful but this was the only example cube we had to work with, but it would be very useful when comparing, say, Actual Q1 Sales with Budget, or finding out which cost centres’ Q2 Costs were 10% higher than Q1. Later in this document we will see how to take that 10% bit and make it a value from another cube, thus allowing administrators, or even end users, to set their own thresholds.<br />
+<code>{FILTER(TM1FilterByLevel({TM1SUBSETALL( [Product] )}, 0),<br />
+test3.([Entity].[Entity Not Applicable], [Posting Measures].[Amount]) * 1.1 &gt; test3.([Entity].[Entity Not Found], [Posting Measures].[Amount]))}</code></p>
+
+<p>Filtering for strings uses the same method but you need to use double quotes to surround the string. For example, this query returns products that have a value of “bob” in the Test2 cube against the String1 member from the StringTest dimension. Note that TM1 is case-insensitive.<br />
+<code>{FILTER(<br />
+    {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+    [Test2].([StringTest].[String1]) = "bob"<br />
+)}</code></p>
+
+<p>Filter functions can be nested if required, although the AND or INTERSECT functions may be useful alternatives.</p>
+
+<p>The limit to the number of characters that an MDX subset definition can sometimes be, 256, is too restricting for many data-based queries. When trying to shoehorn a longer query into less characters there are a few emergency techniques that might help: consider whether you need things like TM1FILTERBYLEVEL, 0 (it might well be that the filter would only return members at the leaf level by definition anyway); whether the dimension name prefix can be removed if the member is guaranteed to be unique; remove all spaces; lookup cubes are not for end users so maybe you could shorten some names (cubes, dimension, members) drastically; whether there are alternative functions with shorter syntaxes that return the same result - e.g. an INTERSECT or AND versus a triple FILTER. Finally, if it really is vital to get a long query working then you can build up the final result in stages – i.e. put some of the filtering into Subset1, then use Subset1 as the subject of Subset2 which continues the filtering, etc.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-73" class="section-4">
+  <h1 class="book-heading">Parent, Children, FirstChild, LastChild, Ancestors, Descendants, DrillDownLevel and TM1DrilldownMember</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Parent, Children, FirstChild, LastChild, Ancestors, Descendants, DrillDownLevel and TM1DrilldownMember</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:53</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Children returns the set of members one level below a named parent.<br />
+<code>{Product.[Demand Loan].Children}</code></p>
+
+<p>FirstChild returns the… first child one level below a named parent.<br />
+<code>{[Product].[Customer Lending].FirstChild}</code><br />
+Returns “Call Participation Purchased”.</p>
+
+<p>LastChild returns the last child one level below a named parent. This is excellent for finding the last day in a month, since they can vary from 28 to 31. Another example is when a consolidation is set up to track a changing set of members (e.g. “Easter”, or “Strategic Customers”).<br />
+<code>{[Product].[Customer Lending].LastChild}</code><br />
+Returns “Term Participation Purchased”.</p>
+
+<p>Parent returns the first parent of a given member. If a member has more than one parent, and the full “unique path” to the member is not specified then the first parent according to the dimension order is returned.<br />
+<code>{[Product].[MidasTPIS].Parent}</code><br />
+Returns “Bonds”.<br />
+<code>{[Product].[External - Bonds].[MidasTPIS].Parent}</code><br />
+Would force TM1 to return the second parent, “External – Bonds”.</p>
+
+<p>Descendants returns the named parent and all of its descendant children – i.e. the hierarchy down to the leaf level:<br />
+<code>{Descendants(Product.[Customer Lending]) }</code></p>
+
+<p>TM1DrilldownMember returns the same thing as descendants:<br />
+<code>{TM1DRILLDOWNMEMBER( {[Product].[Customer Lending]}, ALL, RECURSIVE )}</code></p>
+
+<p>DrillDownLevel just returns the parent and its immediate children:<br />
+<code>{DRILLDOWNLEVEL( {[Product].[Customer Lending]})}</code></p>
+
+<p>DrillDownLevel can be extended with a parameter to say which level to return the members from, rather than the level immediately below, but this doesn’t appear to work in TM1 v9.0 SP2 through to 9.1.1.36.</p>
+
+<p>The common requirement to return a list of just leaf-level descendants of a given consolidated member just needs a level filter applied to the TM1DrillDownMember example above:<br />
+<code>{TM1FILTERBYLEVEL({TM1DRILLDOWNMEMBER({[Product].[Customer Lending]},ALL,RECURSIVE)}, 0)}</code><br />
+Or:<br />
+<code>{TM1FILTERBYLEVEL({DESCENDANTS(Product.[Customer Lending]) }, 0)}</code></p>
+
+<p>Ancestors is like a more powerful version of Parent; it returns a set of all the parents of a member, recursively up though the hierarchy including any multiple parents, grandparents, etc.<br />
+<code>{[Date].[2006-10-01].Ancestors}</code><br />
+Returns “2006 – October”, “2006 – Q4”, “2006 – H2”, “2006”, “All Dates”.</p>
+
+<p>The Ancestor function returns a single member, either itself (,0) or its first parent (,1), first parent’s first parent (,2), etc. depending on the value given as a parameter.<br />
+<code>{ancestor([Date].[2006-10-01], 0)}</code><br />
+Returns “2006-10-01”.<br />
+<code>{ancestor([Date].[2006-10-01], 1)}</code><br />
+Returns “2006 – October”.<br />
+<code>{ancestor([Date].[2006-10-01], 2)}</code><br />
+Returns “2006 – Q4”.<br />
+<code>{ancestor([Date].[2006-10-01], 3)}</code><br />
+Returns “2006 – H2”.<br />
+<code>{ancestor([Date].[2006-10-01], 4)}</code><br />
+Returns “2006”.<br />
+<code>{ancestor([Date].[2006-10-01], 5)}</code><br />
+Returns “All Dates”.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-74" class="section-4">
+  <h1 class="book-heading">Lag, Lead, NextMember, PrevMember, FirstSibling, LastSibling, Siblings and LastPeriods</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Lag, Lead, NextMember, PrevMember, FirstSibling, LastSibling, Siblings and LastPeriods</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:53</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Lags and Leads are the equivalent of Dnext/Dprev.<br />
+<code>{ [Date].[2006-10-03].Lead(1) }</code><br />
+will return 2006-10-04.</p>
+
+<p>Lead(n) is the same as Lag(-n) so either function can be used in place of the other by using a negative value, but if only one direction will ever be needed in a given situation then you should use the correct one for understandability’s sake. Note that they only return a single member so to return the set of members between two members you can use the lastperiods function.</p>
+
+<p>Equally you can use NextMember and PrevMember when you only need to move along by 1 element.<br />
+<code>{ [Date].[2006-10-03].NextMember }</code><br />
+Or:<br />
+<code>{ [Date].[2006-10-03].PrevMember }</code></p>
+
+<p>To return the 6 months preceding, and including, a specific date:<br />
+<code>{ LastPeriods(6, [Date].[2006-10-03]) }</code><br />
+Or:<br />
+<code>LastPeriods(6, [Date].[2006-10-03])</code><br />
+Both of which work because LastPeriods is a function that returns a set, and TM1 always requires a set. Curly braces convert a result into a set which is why many TM1 subset definitions are wrapped in a pair of curly braces, but in this case they are not required.</p>
+
+<p>This will return the rest (or the ones before) of a dimension's members at the same level, from a specified member. Despite its name LastPeriods works on any kind of dimension:<br />
+<code>{ LastPeriods(-9999999, [Date].[2006-10-03]) }</code></p>
+
+<p>Siblings are members who share a common parent. For example, a date of 14th March 2008 will have siblings of all the other dates in March the first of which is the 1st March and the last of which is 31st March. A cost centre under “West Coast Branches” would have a set of siblings of the other west coast branches.</p>
+
+<p>The FirstSibling function returns the first member that shares a parent with the named member. For example:<br />
+<code>{[Product].[MidasHCFI].FirstSibling}</code><br />
+Returns “MidasHCBK”.<br />
+While:<br />
+<code>{[Product].[MidasHCFI].LastSibling}</code><br />
+Returns “MidasHSFI”.</p>
+
+<p>The siblings function should return the whole set of siblings for a given member. TM1 9.0 SP2 through to 9.1.2.49 appear to give you the entire set of members at the same level (counting from the top down) rather than the set of siblings from FirstSibling through to LastSibling only.<br />
+<code>{[Product].[MidasHCFI].Siblings}</code></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-75" class="section-4">
+  <h1 class="book-heading">Filtering by CurrentMember, NextMember, PrevMember, Ancestor and FirstSibling</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Filtering by CurrentMember, NextMember, PrevMember, Ancestor and FirstSibling</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:54</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>This example returns the members that have an Amount value in the Test cube above 18. The [Product].CurrentMember part is optional here but it makes the next example clearer.<br />
+<code>{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+[Test].([Product].CurrentMember, [Posting Measures].[Amount]) &gt; 18 )}</code></p>
+
+<p>This query then modifies the previous query slightly to return members where the NEXT member in the dimension has a value above 18. In practice this is probably more useful in time dimensions.<br />
+<code>{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+[Test].([Product].CurrentMember.NextMember, [Posting Measures].[Amount]) &gt; 18 )}</code></p>
+
+<p>This can then be improved to returning members where the next member is greater than their amount.<br />
+<code>{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+[Test].([Product].CurrentMember.NextMember, [Posting Measures].[Amount]) &gt;<br />
+[Test].([Product].CurrentMember, [Posting Measures].[Amount]) )}</code></p>
+
+<p>In addition to NextMember, PrevMember can also be used as could lags and leads.</p>
+
+<p>The simple, but unsupported as of 9.1.1.89, Name function allows you to filter according to the name of the member. As well as exact matches you could find exceptions, ‘less-thans’ and ‘greater-thans’, bearing in mind these are alphanumeric comparisons not data values.</p>
+
+<p>This example returns all base members before and including the last day in January 1972.<br />
+<code>{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL([Date])} ,0)},<br />
+[Date].CurrentMember.Name<br />
+For example, this could be a useful query even a dimension not as obviously sorted as dates are:<br />
+<code>{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL([Product])} ,0)},<br />
+[Product].CurrentMember.Name<br />
+which returns all base members before MidasJ in terms of their name rather than their dimension index.</code></code></p>
+
+<p><code><code>Parent returns the first parent of a given member:<br />
+<code>{ [Product].[Customer Lending].Parent }</code></code></code></p>
+
+<p><code><code>Used with Filter you can come up with another way of doing a “children of” query:<br />
+<code>{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL([Date])} ,0)},<br />
+[Date].CurrentMember.Parent.Name = "1972 - January")} </code></code></code></p>
+
+<p><code><code>Ancestor() can be used instead of Parent if desired. This example returns base-level product members whose first parents have a value above zero, in other words a kind of family-based suppress zeroes: a particular product might have a value of zero but if one if its siblings has a value then it will still be returned.<br />
+<code>{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].(Ancestor([Product].CurrentMember,0), [Posting Measures].[Amount]) &gt; 0 )}</code></code></code></p>
+
+<p><code><code>This example filters the products based on whether they match the Amount value of MidasHCBK.<br />
+<code>{FILTER(<br />
+{TM1SUBSETALL( [Product] )}, [Test].(Ancestor([Product].CurrentMember,0), [Posting Measures].[Amount]) = [Test].([Product].[MidasHCBK], [Posting Measures].[Amount])<br />
+)}</code></code></code></p>
+
+<p><code><code>This example uses FirstSibling to filter the list based on whether a product’s value does not match that products’ First Sibling (useful for reporting changing stock levels or employee counts over time, for example, things that are usually consistent).<br />
+<code>{FILTER( {TM1FilterByLevel({TM1SUBSETALL( [Product] )}, 0)}, [Test].(Ancestor([Product].CurrentMember,0), [Posting Measures].[Amount]) &lt;&gt; [Test].([Product].CurrentMember.FirstSibling, [Posting Measures].[Amount]) )}</code></code></code></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-76" class="section-4">
+  <h1 class="book-heading">Filtering by Attributes and logical operators</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Filtering by Attributes and logical operators</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:55</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>This returns members that match a certain attribute value using the Filter function.<br />
+<code>{FILTER( {TM1SUBSETALL( [Product] )}, [Product].[Category] = "Customer Lending")}</code></p>
+
+<p>This example looks at multiple attribute values to return a filtered list:<br />
+<code>{<br />
+FILTER(<br />
+    {TM1SUBSETALL( [Product] )},<br />
+    (<br />
+    ([Product].[Category]="Customer Lending" OR [Product].[Type]="Debit")<br />
+    AND<br />
+    ([Product].[Internal Deal]&lt;&gt;"No")<br />
+    )<br />
+    )<br />
+}</code></p>
+
+<p>Filtering by level, attribute and pattern are combined in the following example:<br />
+<code>{TM1FILTERBYPATTERN( {FILTER( TM1FILTERBYLEVEL({TM1SubsetAl([Product])},0),<br />
+[Product].[Internal Deal] = "Yes")}, "*ID??") }</code></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-77" class="section-4">
+  <h1 class="book-heading">Head, Tail and Subset</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Head, Tail and Subset</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:55</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Where TopCount and BottomCount sort the values automatically and chop the list to leave only the most extreme values, Head combined with Filter works in a similar manner but Head then returns the FIRST members of the filtered set in their original dimension order.</p>
+
+<p>These queries simply return the first and last members of the Product dimension as listed when you hit the ‘All’ button:<br />
+<code>{Head ( TM1SubsetAll ( [Product] ) )}<br />
+{Tail ( TM1SubsetAll ( [Product] ) )}</code></p>
+
+<p>This returns the actual last member of the whole Product dimension according to its dimix:<br />
+<code>{Tail(TM1SORTBYINDEX( {TM1DRILLDOWNMEMBER( {TM1SUBSETALL( [Product] )}, ALL, RECURSIVE )}, ASC))}</code></p>
+
+<p>An example of Tail returning the last member of the Customer Lending hierarchy:<br />
+<code>{Tail(TM1DRILLDOWNMEMBER( {[Product].[Customer Lending]}, ALL, RECURSIVE ))}</code></p>
+
+<p>An example of Head returning the first 10 members (according to the dimension order) in the product dimension that have an Amount in the Test cube above zero.<br />
+<code>{HEAD( FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]) &gt; 0 ), 10)}</code></p>
+
+<p>With both Head and Tail the “,10” part can actually be omitted (or just use “,0”) which will then return the first or last member.</p>
+
+<p>This returns the last (in terms of dimension order, not sorted values) product that had an amount &gt; 0 in the Test cube.<br />
+<code>{TAIL( FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]) &gt; 0 ))}</code></p>
+
+<p>One example of when this is useful over TopCount or BottomCount – i.e. when sorting the results would be detrimental - would be to return the last day the year when a certain product was sold.</p>
+
+<p>Subset is closely related to Head and Tail, and can actually replicate their results, but is additionally capable of specifying a start point and a range, similar in concept to substring functions (e.g. SUBST) found in other languages, though working on a tuple of objects not strings.</p>
+
+<p>The equivalent of Head, 10 would be:<br />
+<code>{Subset ( {Tm1FilterByLevel(TM1SubsetAll ( [Product] ) , 0)}, 1, 10)}</code><br />
+But Subset would also allow us to start partitioning the list at a point other than the start. So for example to bring in the 11th – 20th member:<br />
+<code>{Subset ( {TM1FilterByLevel(TM1SubsetAll ( [Product] ) , 0)}, 11, 10)}</code><br />
+Note that asking for more members than exist in the original set will just return as many members as it can rather than an error message.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-78" class="section-4">
+  <h1 class="book-heading">Union</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Union</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:56</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Union joins two sets together, returning the members of each set, optionally retaining or dropping duplicates (default is to drop).</p>
+
+<p>This creates a single list of the top 5 and worst 5 products.<br />
+<code>{UNION(<br />
+TOPCOUNT( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, 5, [Test].([Posting Measures].[Amount]) ),<br />
+BOTTOMCOUNT( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, 5, [Test].([Posting Measures].[Amount]) )<br />
+)}</code></p>
+
+<p>To create a list of products that sold something both in this cube and in another (e.g. last year and this):<br />
+<code>{UNION(<br />
+FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]) &gt; 0 ) ,<br />
+FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test3].([Posting Measures].[Amount], [Entity].[All Entities]) &gt; 0 )<br />
+) }</code></p>
+
+<p> 
+</p><p> </p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-79" class="section-4">
+  <h1 class="book-heading">Intersect</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Intersect</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:56</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Intersect returns only members that appear in both of two sets. One example might be to show products that performed well both last year and this year, or customers that are both high volume and high margin. The default is to drop duplicates although “, ALL” can be added if these are required.</p>
+
+<p>This example returns leaf Product members that have an Amount &gt; 5 as well as a Count &gt; 5.<br />
+<code>{<br />
+INTERSECT(<br />
+    FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]) &gt; 5 ) ,<br />
+    FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Count]) &gt; 5 )<br />
+    )<br />
+}</code></p>
+
+<p> </p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-80" class="section-4">
+  <h1 class="book-heading">Except and Validating Dimension Hierarchies</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Except and Validating Dimension Hierarchies</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:56</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>The function takes two sets as its mandatory parameters <strong>and removes those members in the first set that also exist in the second</strong>. In other words it returns only those members that are <em>not in common</em> between the two sets, but note that members that are unique to the second set are not included in the result set.</p>
+
+<p>Except is a useful function in a variety of situations, for example when selecting all the top selling products except for 1 or 2 you already know are uninteresting or irrelevant, or selecting all the cost centres with high IT costs – except for the IT department.</p>
+
+<p>The simplest example is to have a first set of 2 members and a second set of 1 of those members:<br />
+<code>EXCEPT (<br />
+{ [Product].[MidasJCCO],[Product].[MidasJCFI] },<br />
+{ [Product].[MidasJCCO] }<br />
+)</code><br />
+Which returns MidasJCFI, the only member not in common between the two sets.</p>
+
+<p>For the purposes of maximum clarity in the rest of this section only, we will drop the [Product] reference and trust that these product names are uniquely in the Product dimension on our server.</p>
+
+<p>This query returns nothing:<br />
+<code>EXCEPT({ [Product].[MidasJCCO],[Product].[MidasJCCO] },{ [Product].[MidasJCCO] })</code></p>
+
+<p>This example returns all Products, except for MidasJCCO and the Demand Loan family.<br />
+<code>{ EXCEPT(<br />
+{ TM1SUBSETALL( [Product] )},<br />
+{ [MidasJCCO], Descendants([Demand Loan]) }<br />
+)}</code></p>
+
+<p>The optional extra ALL parameter allows duplicates to remain prior to the determination of the difference; i.e. <em>matching</em> duplicates <em>within</em> the <em>first</em> set are discarded, while non-matching duplicates are retained.</p>
+
+<p>A simple example where there are duplicate members in the first set:<br />
+<code>EXCEPT (<br />
+{ [MidasJCCO],[MidasJCCO],[MidasJCFI] },<br />
+{ [MidasJCFI] }<br />
+)</code><br />
+Returns MidasJCCO (because duplicates are discarded without ALL), while:<br />
+EXCEPT (<br />
+<code>{ [MidasJCCO],[MidasJCCO],[MidasJCFI] },<br />
+{ [MidasJCFI] }<br />
+, ALL)</code><br />
+Returns MidasJCCO, MidasJCCO (as ALL allows the duplicate MidasJCCO members to be retained).</p>
+
+<p>Note that ALL has no effect on the following query as MidasJCFI is the only member not in common between the two sets and so this is the only result either way:<br />
+<code>EXCEPT (<br />
+{ [MidasJCCO],[MidasJCCO],[MidasJCFI] },<br />
+{ [MidasJCCO] }<br />
+)</code><br />
+Returns MidasJCFI.</p>
+
+<p>Remember, the members in the first set that also exist in the second are eliminated, hence (both instances of) MidasJCCO is eliminated</p>
+
+<p>So if you were to ask for <code>EXCEPT({Apples, Apples, Oranges, Oranges}, {Apples, Pears})</code> then the final set would be{Oranges} without ALL and {Oranges, Oranges} with ALL. Because matching duplicates in the first set are eliminated first (that is, duplicates in the first set that match a member in the second set), Apples (the only member in the second set that matches a pair of duplicates in the first set, is eliminated.</p>
+
+<p>To put the fruit down and return to our demo model we can write the equivalent query against products:<br />
+<code>EXCEPT (<br />
+{ [MidasJCCO],[MidasJCCO],[MidasJCFI],[MidasJCFI] },<br />
+{ [MidasJCCO],[MidasHDBK] }<br />
+)</code><br />
+Returns just one MidasJCFI (the equivalent of Oranges above) while:<br />
+<code>EXCEPT (<br />
+{ [MidasJCCO],[MidasJCCO],[MidasJCFI],[MidasJCFI] },<br />
+{ [MidasJCCO],[MidasHDBK] }<br />
+, ALL)</code><br />
+Returns two instances of MidasJCFI.<br />
+These results are due to the fact that, in the example with ALL, MidasJCCO is eliminated due to a matching member in set 2, while MidasJCFI is reduced to 1 instance due to the lack of ALL. MidasHDBK has no impact because it could not be subtracted from set 1 as it was not in set 1. When ALL was used in the second example, the two MidasJCCO members were still eliminated due to a match in set 2, and MidasHDBK was still irrelevant, but this time the two MidasJCFI members were left alone due to the ALL allowing duplicates.</p>
+
+<p>A final example, similar to the last but slightly expanded:<br />
+<code>EXCEPT (<br />
+{ [MidasJCCO],[MidasJCCO],[MidasJCFI],[MidasJCFI] },<br />
+{ [MidasHCBK],[MidasHDBK] }<br />
+)</code><br />
+Returns MidasJCCO, MidasJCFI; while:<br />
+<code>EXCEPT (<br />
+{ [MidasJCCO],[MidasJCCO],[MidasJCFI],[MidasJCFI] },<br />
+{ [MidasHCBK],[MidasHDBK]}<br />
+,ALL)</code><br />
+Returns MidasJCCO, MidasJCCO, MidasJCFI, MidasJCFI.</p>
+
+<p><em>Note: the following section does not work in v9.1 SP2, but does work in v9.0. Your mileage may vary.</em><br />
+A particularly clever use of Except is to check a TM1 dimension for a valid structure. A simple query can return a list of members that do not eventually roll up into a particular consolidated member. This could be included in a TI process to automate the consistency checking of dimensions after an update.</p>
+
+<p>This example returns all the members in the dimension that do not roll up into All Products:<br />
+<code>EXCEPT (<br />
+TM1SUBSETALL( [Product] ),<br />
+TM1DRILLDOWNMEMBER( {[Product].[All Products]}, ALL, RECURSIVE ))</code><br />
+Modifying this slightly makes it return base-level members that do not roll up into All Products:<br />
+<code>EXCEPT (<br />
+TM1FILTERBYLEVEL(TM1SUBSETALL( [Product] ), 0),<br />
+TM1FILTERBYLEVEL(TM1DRILLDOWNMEMBER( {[Product].[All Products]}, ALL, RECURSIVE ), 0))</code></p>
+
+<p>This query returns members that have been consolidated twice or more at some point under the given consolidated member – this will often mean there has been an accidental double-count.<br />
+<code>EXCEPT (<br />
+TM1DRILLDOWNMEMBER( {[Product].[All Products]}, ALL, RECURSIVE ),<br />
+TM1SUBSETALL( [Product] ), ALL)</code><br />
+It will return one instance of the multi-consolidated member for each time it is consolidated greater than once – i.e. if it has been consolidated 4 times then it will return 3 instances.<br />
+This is due to the fact that <em>TM1SUBSETALL( [Product] )</em> will only return one instance of a member that has been consolidated multiple times while the <em>TM1DrilldownMember</em> function will return all the instances. You are reminded that [Dimension].[Member] is actually a shortcut that usually works in TM1 but because the MDX specification allows for member names to be non-unique within a dimension the full address of a member is actually [Dimension].[Parent1].[Parent2]…[Member]. Therefore more specific references to duplicate members may be needed, for example [Product].[Demand Loan].[MidasHCBK] will address a different instance of MidasHCBK than would [Product].[Discount Loan].[MidasHCBK]. In this case, with the Except function, they are treated as if they are different member names altogether.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-81" class="section-4">
+  <h1 class="book-heading">ToggleDrillState</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">ToggleDrillState</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 10:57</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>ToggleDrillState changes the default drill state from a returned set – so if the first query returns a member in a hierarchy rolled up then it will drill it down, or vice versa.</p>
+
+<p>For example,<br />
+<code>{[Product].[Customer Lending].Children}</code><br />
+Returns:</p>
+
+<p><img alt="Subset Product Children" data-entity-type="file" data-entity-uuid="dd0a7f6c-33fe-4404-a978-01a655cdc03d" src="/sites/default/files/inline-images/subset-product-children.jpg" /></p>
+
+<p>Whereas this query:<br />
+<code>{TOGGLEDRILLSTATE( {[Product].[Customer Lending].Children},{[Product].[Demand Loan]} )}</code><br />
+Returns:</p>
+
+<p><img alt="Subset Product children toggledrillstate" data-entity-type="file" data-entity-uuid="181fb608-40ca-410d-97d2-d52be4dea272" src="/sites/default/files/inline-images/subset-product-children-toggledrillstate.jpg" /></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-82" class="section-4">
+  <h1 class="book-heading">Using TM1 Subsets, TM1Member and TM1SubsetToSet</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Using TM1 Subsets, TM1Member and TM1SubsetToSet</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 11:01</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>One of the special features of using MDX with TM1 dimensions is that existing subsets can be used within the query for defining a new subset. This can be useful in allowing a simpler ‘building block’ approach and for not having to repeat the same code over and over again – and having to maintain it.</p>
+
+<p>Used throughout this section, <code>[Report Date]</code> is an existing subset in the Date dimension containing one leaf date member and <code>[test2]</code> is an existing 20-member subset.</p>
+
+<p>Note that private subsets are used in preference to public subsets when there is one of each with the same name. This can allow a public subset to return different results based on the contents of different users’ private subsets, though inevitably with some issues with reliability of results.</p>
+
+<p>To simply return the member(s) of pre-existing Date subsets:<br />
+<code>[Date].[Report Date]</code><br />
+Or<br />
+<code>TM1SubsetToSet([Date], "Report Date")</code></p>
+
+<p>The first syntax may be shorter and more convenient but bear in mind, as per the TM1 help file, “Since the same syntax ( .IDENTIFIER ) is used for members and levels, a subset with the same name of a member or a level will never be instantiated.” The second syntax on the other hand will happily work with any subset names even if they are named the same as a cube or dimension.</p>
+
+<p>To return the first member of the test2 subset:<br />
+<code>{ [Date].[test2].Item(0) }</code></p>
+
+<p>To return a valid cube reference within a more complex query:<br />
+<code>TM1Member([Date].[Current Date].Item(0), 0)</code><br />
+For example:<br />
+<code>{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Account] )}, 1)}, [Reconciliation].([Entity].[All Entities],TM1Member([Date].[Current Date].Item(0),0),[Reconciliation Measures].[Transaction Balance]) &lt;&gt; 0 )}</code></p>
+
+<p>To start with the fourth item (.Item counts from zero) in the test2 subset and then return the preceding 14 members from the whole dimension, including the fourth item:<br />
+<code>{ lastperiods(14, tm1member( [Date].[test2].item(3),0) )}</code></p>
+
+<p>This example returns the one date in Report Date and the next 13 periods, sorted with the earliest date first – a moving 2-week reporting window which just needs the Report Date subset to be maintained.<br />
+<code>{ tm1sort( lastperiods(-14, TM1Member( [Date].[Report Date].Item(0), 0) ), ASC)}</code></p>
+
+<p>And this example does a similar thing working in the other direction:<br />
+<code>{ tm1sort( lastperiods(14, TM1Member( [Date].[Report Date].Item(0), 0) ), DESC)}</code></p>
+
+<p>This query uses another subset, Strategic Products, as a building block and finds the Top 5 members within it, even though this ranking may well have been based on different values than the original subset was built on. For example, a subset that is already defined may list the 10 highest spending customer segments in terms of year to date actuals, and you then build a new subset that <strong>works with these 10 only</strong> to find the top 5 in terms of planned marketing spend next quarter.<br />
+<code>{ ORDER( {TOPCOUNT( {[Product].[Strategic Products]}, 5, [Test].([Posting Measures].[Count]))}, [Test].([Posting Measures].[Count]), BDESC) }</code></p>
+
+<p>Here’s a bigger example using TM1member and TM1SubsetToSet functions, in addition to various others. It takes the single period in the “Current Date” subset and returns the last day of the two preceding months. There would be several different ways of achieving the same result.<br />
+<code>{<br />
+union(<br />
+{tail(descendants(head(lastperiods(3,ancestor(<br />
+tm1member(tm1subsettoset([Date], "Current Date").item(0),0),1)<br />
+))))},<br />
+{tail(descendants(head(lastperiods(2,ancestor(<br />
+tm1member(tm1subsettoset([Date], "Current Date").item(0),0),1)<br />
+))))}<br />
+)<br />
+}</code></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-83" class="section-4">
+  <h1 class="book-heading">Username and StrToMember</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Username and StrToMember</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 11:02</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>It returns the TM1 username (or Windows domain username depending on the security system being used – for example, “GER\JEREMY”) of the user who runs the query. Note that you may need to give all users Read access to the }Clients dimension and all its elements.</p>
+
+<p>It is not documented in the help file as being officially supported by TM1 but it is a standard MDX feature that appears to work in v8.3. However, since 8.4.3 until 9.1.2.49 it is reported as failing to automatically update when a new user uses the subset. This can be circumvented by running a frequent TI process that uses the subset as its datasource and the following line in Prolog (Workaround reported by Steve Vincent on the Applix Forum, 2nd August 2006):<br />
+<code>DIMENSIONSORTORDER('}CLIENTS','BYNAME','ASCENDING','','');</code><br />
+With this “micro-process” workaround set to run every few minutes a pseudo-dynamic result is possible. An actual solution to the problem should be tested for in your version if it is 9.1 or later.</p>
+
+<p>To save a dynamic subset it needs to be set up on the }Clients dimension – choose View / Control Objects in Server Explorer to see this dimension. Once you have saved the public subset (e.g. as “Current User”) you can turn this option off again.<br />
+<code>{TM1FILTERBYPATTERN( {TM1SUBSETALL( [}Clients] )}, USERNAME )}</code></p>
+
+<p>As an alternative to the above method, and as a way of including the current username directly in queries use the StrToMember function which converts a plain string into a valid MDX member reference.<br />
+<code>{StrToMember("[}Clients].["+USERNAME+"]") }</code></p>
+
+<p><code><img alt="Subset Username" data-entity-type="file" data-entity-uuid="22bf2217-45d5-466c-8a78-9d7f5a130bfa" src="/sites/default/files/inline-images/subset-username.jpg" /></code></p>
+
+<p>Either way the subset can then be referred to on Excel spreadsheets, VBA processes and, as it is simply a standard TM1 subset, in TM1 Websheets.</p>
+
+<p><img alt="TM1 username in Excel spreadsheet" data-entity-type="file" data-entity-uuid="e6e196fa-30da-4df8-ab1e-ef66f0b492b0" src="/sites/default/files/inline-images/spreadsheet-tm1-username.jpg" /></p>
+
+<p>As a non-MDX alternative v9.1.2.49 introduced a <code>=TM1User(servername)</code> worksheet function which could be used in some circumstances.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-84" class="section-4">
+  <h1 class="book-heading">Data-based queries, Filter, Sum, Avg and Stdev</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Data-based queries, Filter, Sum, Avg and Stdev</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 11:06</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Sometimes it is not adequate to simply use a single value in a query; you need to consider a combination of values. It might be that this combination is only needed for one or two queries, though, so it is not desirable to calculate and store the result in the cube for all to see. Therefore it is more logical to quickly calculate the result on the fly and although this is then repeated every time the subset is used, it is still the preferred choice. The function Sum, Avg and Stdev are therefore useful for things that are only needed occasionally or by a limited number of users and means that the actual cube is thus smaller and more efficient.</p>
+
+<p>SUM, as it might appear, sums up a set of numbers. This allow the aggregation of members not already consolidated in the model. This example checks the Test3 cube for products whose Amounts in the on-the-fly-consolidation of 2 entities are greater than 50.<br />
+<code>{FILTER(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+SUM(<br />
+{[Entity].[MidasLDN], [Entity].[Entity Not Applicable]},<br />
+Test3.([Posting Measures].[Amount]) ) &gt; 50<br />
+)}</code></p>
+
+<p>AVG calculates the average value of a set. Note how empty (zero) cells are not included by the AVG function so the resulting average value might be higher than you expected.</p>
+
+<p>This example returns a list of leaf products that have an Amount value in the Test cube higher than the average Amount value of all leaf products (or rather all non-zero leaf products).<br />
+<code>{FILTER(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+(Test.[Posting Measures].[Amount] &gt;<br />
+AVG({TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]))<br />
+)<br />
+)}</code></p>
+
+<p>The set of members that AVG works on here <code>(AVG{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)})</code> can be changed to something that doesn’t match the list of members being filtered earlier in the query. For example, return a list of all leaf products that are higher than the average of the leaf descendants of the Customer Lending consolidation only.<br />
+<code>{FILTER(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+(Test.[Posting Measures].[Amount] &gt;<br />
+AVG({DESCENDANTS(Product.[Customer Lending]) },[Test].([Posting Measures].[Amount])))<br />
+)}</code></p>
+
+<p>STDEV is the standard deviation function. It returns the average distance from each value in a set to the average of the set as a whole. In this way you can calculate how consistent or unpredictable a set of data is – if all the values lie tightly around the average, or if the values vary to be extremely high and low.</p>
+
+<p>This example returns the outlying products whose Amount value in the Test cube is greater than the average value plus the standard deviation – i.e. those products who have values that are “above averagely above the average”.<br />
+<code>{FILTER(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+(<br />
+Test.[Posting Measures].[Amount] &gt;<br />
+(<br />
+AVG({TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]))<br />
++<br />
+STDEV( {FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]) &gt; 0 )}<br />
+)<br />
+)<br />
+)<br />
+)}</code></p>
+
+<p>Note that the AVG function automatically drops empty cells from the filtering set but STDEV does not so we have to apply our own filter.</p>
+
+<p>The equivalent lower-bound outlier query would be:<br />
+<code>{FILTER(<br />
+{FILTER( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]) &gt; 0 )},<br />
+(<br />
+Test.[Posting Measures].[Amount] 0 )}<br />
+)<br />
+)<br />
+)<br />
+)}</code></p>
+
+<p>The above queries could be INTERSECTed for both sets of outliers in one subset, if required.</p>
+
+<p>Further reading: The MEDIAN function is also supported by TM1 and might be more appropriate than AVG (mean) in some circumstances.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-85" class="section-4">
+  <h1 class="book-heading">Using parameters in queries</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Using parameters in queries</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 11:06</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>TM1Member will allow you to use parameterized references by using cube values as part of the query itself. For example if a UserParams cube was created with the }Clients dimension (thus allowing concurrent usage by all users) which would hold various choices made by users as they used your application, then dynamic subsets could use those choices as part of their syntax, thus altering not just the thresholds for comparisons (we can see elsewhere in this document how to check if something is, say, above a certain threshold which is actually a value in another cube) but the actual thing that is queried in the first place.</p>
+
+<p>For example, this shows the descendants of a parent member, the name of which is held in the 2D UserParams cube at the intersection of the current username and ‘SelectedParentDimix’.<br />
+<code>{DESCENDANTS(TM1Member(<br />
+TM1SUBSETALL( [Product] ).Item([UserParams].(StrToMember("[}Clients].["+USERNAME+"]"), [UserParamMeasures].[SelectedParentDimix])-1)<br />
+, 0)) }</code></p>
+
+<p>Below are screenshots showing the parameter cube which can be extended to hold various user-specific selections and then link them into dynamic subsets plus the other relevant screens.</p>
+
+<p><img alt="Cube UserParams" data-entity-type="file" data-entity-uuid="a7246088-bba8-4ae8-8f41-139e35802f40" src="/sites/default/files/inline-images/cube-userparams.jpg" /></p>
+
+<p><img alt="Cube Userparams Rules" data-entity-type="file" data-entity-uuid="09f3700c-0dfb-4a9a-af3f-3ef3407afe8a" src="/sites/default/files/inline-images/cube-userparams-rules.jpg" /></p>
+
+<p><img alt="User based Subset" data-entity-type="file" data-entity-uuid="f508b09d-9f2c-4f49-80ca-73ff244ab117" src="/sites/default/files/inline-images/user-based-subset.jpg" /></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-86" class="section-4">
+  <h1 class="book-heading">Generate</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Generate</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 11:09</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>The Generate function applies a second set to each member of a first set, performing a union of the results. Duplicates are dropped by default but can be retained with “,ALL”.<br />
+Although Generate doesn’t really do anything unique in itself it is a very useful way of shortening what would otherwise be long, laborious and error-prone queries.</p>
+
+<p>In the following example the top performing child product is returned for each member of Level 1 of the hierarchy:<br />
+<code>{Filter(<br />
+GENERATE(<br />
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 1)},<br />
+TopCount(Descendants([Product].CurrentMember, 1),1,Test.([Posting Measures].[Amount])))<br />
+,Test.([Posting Measures].[Amount]) &gt; 0<br />
+)}</code></p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-87" class="section-4">
+  <h1 class="book-heading">Count and IIF</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Count and IIF</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 11:10</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Caveat: Note that IIF is not listed in the TM1 v9.0 SP2 help file as being supported so use at your own risk.</p>
+
+<p>Count returns the number of items in a set but this set can be a set of members or a set of data values. The result is, obviously, a number and is often returned in reports when used in MDX queries outside of TM1. When trying to use it do define a TM1 subset it can only be used as part of the query logic and not as a result itself.</p>
+
+<p>Count can be wrapped around a lot of the other MDX functions and so can be used in many different scenarios. One example is to count how many children a month has and, if there are 28, doing something that is unique to February. Although dimension subsets are usually a list of meaningful items in a business model and are included within application cubes, it is actually possible to have dimensions for administrator purposes only (that are never used to build cubes) which might indicate the state of something – e.g. “All Passwords Set”, or “Reconciliation Failed” and the Count function could be used to define a subset that contains one of these members, which is information for the administrator only.</p>
+
+<p>IIF allows you to introduce some branching logic in your queries – i.e. do one thing if this is true, otherwise do something else. You could use it to apply different statistical functions to members that have certain attributes. It works quite commonly with Count to allow one thing to happen if the count of something falls below a threshold, or do something else if not.</p>
+
+<p>This example performs either a Top 5 or a Top 10 on all base products’ Amounts in the Test cube, depending on whether the number of base level Products is 10 or less at the time the query is run.<br />
+<code>{ TOPCOUNT( {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+IIF(Count({TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}) &lt;= 10, 5, 10),<br />
+[Test].([Posting Measures].[Amount]) )}</code></p>
+
+<p>This example does a TopCount of the base products based on their Amount value in the Test cube where the number of items displayed is equal to the number of cells in the Test cube whose Amount value is anything other than zero.<br />
+<code>{TOPCOUNT(<br />
+    {TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)},<br />
+    Count(<br />
+        Filter({TM1FILTERBYLEVEL( {TM1SUBSETALL( [Product] )}, 0)}, [Test].([Posting Measures].[Amount]) &lt;&gt; 0),<br />
+         )<br />
+    )<br />
+}</code><br />
+These are fairly pointless examples, practically speaking, but they show the syntax.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+<article id="node-88" class="section-4">
+  <h1 class="book-heading">Comments</h1>
+  <span class="field field--name-title field--type-string field--label-hidden">Comments</span>
+<span class="field field--name-uid field--type-entity-reference field--label-hidden"><span lang="" about="/index.php/user/14" typeof="schema:Person" property="schema:name" datatype="">admin</span></span>
+<span class="field field--name-created field--type-created field--label-hidden">Wed, 2019-11-20 11:10</span>
+
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Comments allow you to explain, to yourself and/or to your users, what the query is trying to achieve, how it works, who wrote it or amended, etc.</p>
+
+<p>Use "//" or "—" (without the double quotes) to end a line with a comment or to have the comment on its own line.</p>
+
+<p>You can also use “/* COMMENT */” (again without the quotes) to insert a comment in the middle of a<br />
+line. You are also able to type anything after the command.</p>
+
+<p>This heavily-commented example returns all the products beginning “MidasJ”:<br />
+<code>//Comment number 1<br />
+/* this is another comment */<br />
+{TM1FILTERBYPATTERN( //and another comment<br />
+-- and another comment<br />
+{TM1SUBSETALL( [Product] )},/* this is yet another comment */ "MidasJ*")}<br />
+You seem to be able to type what you like here, but treat with caution</code><br />
+<br />
+This does not work in version 8.2.7 but does in at least 9.0 and 9.1.1.</p></div>
+      
+  <div class="field field--name-field-categories field--type-entity-reference field--label-above">
+    <div class="field__label">Categories</div>
+          <div class="field__items">
+              <div class="field__item"><a href="/index.php/tm1/mdx" hreflang="en">MDX</a></div>
+              </div>
+      </div>
+
+  
+</article>
+
+</article>
+
+      </div>
+      </div>
+    </body>
+</html>
